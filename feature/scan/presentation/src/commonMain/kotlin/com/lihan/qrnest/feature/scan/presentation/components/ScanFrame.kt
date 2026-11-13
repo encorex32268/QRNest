@@ -1,0 +1,139 @@
+package com.lihan.qrnest.feature.scan.presentation.components
+
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.lihan.qrnest.core.designsystem.theme.QRNestTheme
+
+@Composable
+fun ScanFrame(
+    modifier: Modifier = Modifier,
+    pathColor: Color = MaterialTheme.colorScheme.primary
+) {
+    val density = LocalDensity.current
+    val cornerRadiusPx = with(density) { 18.dp.toPx() }
+    val borderStrokeWidthPx = with(density) { 4.dp.toPx() }
+    val length = with(density) { 50.dp.toPx() }
+
+    Canvas(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(color = Color.Transparent)
+    ) {
+        drawQRCodeFrame(
+            length = length,
+            cornerRadiusPx = cornerRadiusPx,
+            borderStrokeWidthPx = borderStrokeWidthPx,
+            pathColor = pathColor
+        )
+    }
+}
+
+private fun DrawScope.drawQRCodeFrame(
+    length: Float,
+    cornerRadiusPx: Float,
+    borderStrokeWidthPx: Float,
+    pathColor: Color
+) {
+    val path = Path().apply {
+        moveTo(x = 0f, y = length)
+        arcTo(
+            rect = Rect(
+                left = 0f,
+                top = 0f,
+                right = cornerRadiusPx,
+                bottom = cornerRadiusPx
+            ),
+            startAngleDegrees = 180f,
+            sweepAngleDegrees = 90f,
+            forceMoveTo = false
+        )
+        lineTo(x = length, y = 0f)
+
+        moveTo(x = size.width - length, y = 0f)
+        arcTo(
+            rect = Rect(
+                left = size.width - cornerRadiusPx,
+                top = 0f,
+                right = size.width,
+                bottom = cornerRadiusPx
+            ),
+            startAngleDegrees = 270f,
+            sweepAngleDegrees = 90f,
+            forceMoveTo = false
+        )
+        lineTo(x = size.width, y = length)
+
+        moveTo(x = size.width, y = size.height - length)
+        arcTo(
+            rect = Rect(
+                left = size.width - cornerRadiusPx,
+                top = size.height - cornerRadiusPx,
+                right = size.width,
+                bottom = size.height
+            ),
+            startAngleDegrees = 0f,
+            sweepAngleDegrees = 90f,
+            forceMoveTo = false
+        )
+        lineTo(x = size.width - length, y = size.height)
+
+        moveTo(x = length, y = size.height)
+        arcTo(
+            rect = Rect(
+                left = 0f,
+                top = size.height - cornerRadiusPx,
+                right = cornerRadiusPx,
+                bottom = size.height
+            ),
+            startAngleDegrees = 90f,
+            sweepAngleDegrees = 90f,
+            forceMoveTo = false
+        )
+        lineTo(x = 0f, y = size.height - length)
+    }
+
+    drawRoundRect(
+        cornerRadius = CornerRadius(
+            x = cornerRadiusPx - borderStrokeWidthPx,
+            y = cornerRadiusPx - borderStrokeWidthPx
+        ),
+        color = Color.Transparent,
+        size = Size(width = size.width, height = size.height),
+        blendMode = BlendMode.Clear
+    )
+
+    drawPath(
+        path = path,
+        color = pathColor,
+        style = Stroke(width = borderStrokeWidthPx)
+    )
+}
+
+@Preview
+@Composable
+private fun ScanFramePreview() {
+    QRNestTheme {
+        ScanFrame(
+            modifier = Modifier
+                .size(300.dp)
+                .padding(16.dp)
+        )
+    }
+}

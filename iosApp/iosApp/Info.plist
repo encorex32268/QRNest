@@ -4,5 +4,11 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>QRNest needs camera access to scan QR codes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>QRNest needs photo library access to scan QR codes from saved images.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>QRNest needs permission to save generated QR code images to your Photos library.</string>
 </dict>
 </plist>
