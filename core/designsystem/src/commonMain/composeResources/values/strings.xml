@@ -49,4 +49,12 @@
     <string name="flashlight">Flashlight</string>
     <string name="pick_image">Pick image</string>
     <string name="title_hint">Title</string>
+    <string name="generate_subtitle">Choose a format to encode</string>
+    <string name="type_desc_text">Plain note or snippet</string>
+    <string name="type_desc_link">URL or web page</string>
+    <string name="type_desc_contact">Name, email &amp; phone</string>
+    <string name="type_desc_phone">Direct call number</string>
+    <string name="type_desc_geo">Latitude &amp; longitude</string>
+    <string name="type_desc_wifi">Network &amp; password</string>
+    <string name="history_empty_hint">Scanned and generated codes appear here</string>
 </resources>

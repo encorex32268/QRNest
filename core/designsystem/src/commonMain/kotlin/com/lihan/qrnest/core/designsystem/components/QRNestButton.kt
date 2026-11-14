@@ -2,10 +2,13 @@ package com.lihan.qrnest.core.designsystem.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -30,19 +33,21 @@ fun QRNestButton(
     text: String? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    textColor: Color = PrimaryButtonText,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary,
     containerColor: Color = Color.Transparent
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(minHeight = 48.dp),
         enabled = enabled,
+        shape = RoundedCornerShape(16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
             disabledContainerColor = if (containerColor != MaterialTheme.colorScheme.primary) {
                 Color.Transparent
             } else {
-                MaterialTheme.colorScheme.surface
+                MaterialTheme.colorScheme.outline.copy(alpha = 0.45f)
             },
             disabledContentColor = MaterialTheme.colorScheme.appColors.onSurfaceDisabled
         )
@@ -90,7 +95,7 @@ private fun QRNestButtonPreview() {
                     Icon(
                         imageVector = QRNestIcons.Scan,
                         contentDescription = null,
-                        tint = PrimaryButtonText
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             )

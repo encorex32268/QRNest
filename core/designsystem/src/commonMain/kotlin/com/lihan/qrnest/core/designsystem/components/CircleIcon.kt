@@ -1,7 +1,6 @@
 package com.lihan.qrnest.core.designsystem.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -27,20 +26,12 @@ fun CircleIcon(
     imageVector: ImageVector,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
-    size: Dp = 32.dp,
-    onClick: (() -> Unit)? = null
+    size: Dp = 32.dp
 ) {
     Box(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .then(
-                if (onClick != null) {
-                    Modifier.clickable(onClick = onClick)
-                } else {
-                    Modifier
-                }
-            )
             .background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {

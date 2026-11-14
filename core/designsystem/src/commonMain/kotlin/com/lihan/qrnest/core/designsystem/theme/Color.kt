@@ -8,22 +8,24 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-val PrimaryButtonText = Color(0xFF273037)
+val PrimaryButtonText = Color(0xFFFFFFFF)
 
 val LightColorScheme = lightColorScheme(
-    primary = Color(0xFFEBFF69),
-    surface = Color(0xFFEDF2F5),
-    onSurface = Color(0xFF273037),
-    outline = Color(0xFFCCD5DC),
-    error = Color(0xFFF12244)
+    primary = Color(0xFFB45309),
+    onPrimary = Color(0xFFFFFFFF),
+    surface = Color(0xFFF7F5F0),
+    onSurface = Color(0xFF241D14),
+    outline = Color(0xFFE6DFD3),
+    error = Color(0xFFDC2626)
 )
 
 val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFFE2F652),
-    surface = Color(0xFF12181C),
-    onSurface = Color(0xFFE3E8EC),
-    outline = Color(0xFF38454F),
-    error = Color(0xFFFF6B82)
+    primary = Color(0xFFF59E0B),
+    onPrimary = Color(0xFF241604),
+    surface = Color(0xFF15120D),
+    onSurface = Color(0xFFF5EFE6),
+    outline = Color(0xFF332C21),
+    error = Color(0xFFF87171)
 )
 
 @Immutable
@@ -50,44 +52,44 @@ data class AppColors(
 
 val LightColors = AppColors(
     surfaceHigher = Color(0xFFFFFFFF),
-    onSurfaceAlt = Color(0xFF505F6A),
-    onSurfaceDisabled = Color(0xFF8C99A2),
-    overlay = Color(0x80000000),
+    onSurfaceAlt = Color(0xFF6E6151),
+    onSurfaceDisabled = Color(0xFFA89C8C),
+    overlay = Color(0x9915120D),
     onOverlay = Color(0xFFFFFFFF),
-    link = Color(0xFF373F05),
-    linkBG = Color(0x4DEBFF69),
-    success = Color(0xFF4DDA9D),
-    text = Color(0xFF583DC5),
-    textBG = Color(0x1A583DC5),
-    contact = Color(0xFF259570),
-    contactBG = Color(0x1A259570),
-    geo = Color(0xFFB51D5C),
-    geoBG = Color(0x1AB51D5C),
-    phone = Color(0xFFC86017),
-    phoneBG = Color(0x1AC86017),
-    wifi = Color(0xFF1F44CD),
-    wifiBG = Color(0x1A1F44CD)
+    link = Color(0xFFB45309),
+    linkBG = Color(0x14B45309),
+    success = Color(0xFF0E9F6E),
+    text = Color(0xFF6938EF),
+    textBG = Color(0x146938EF),
+    contact = Color(0xFF0E9F6E),
+    contactBG = Color(0x140E9F6E),
+    geo = Color(0xFFE01E5A),
+    geoBG = Color(0x14E01E5A),
+    phone = Color(0xFFD95F02),
+    phoneBG = Color(0x14D95F02),
+    wifi = Color(0xFF0284C7),
+    wifiBG = Color(0x140284C7)
 )
 
 val DarkColors = AppColors(
-    surfaceHigher = Color(0xFF1E272E),
-    onSurfaceAlt = Color(0xFF9AA7B1),
-    onSurfaceDisabled = Color(0xFF5E6D7A),
-    overlay = Color(0x80000000),
+    surfaceHigher = Color(0xFF201B14),
+    onSurfaceAlt = Color(0xFFACA08E),
+    onSurfaceDisabled = Color(0xFF6B6052),
+    overlay = Color(0xB315120D),
     onOverlay = Color(0xFFFFFFFF),
-    link = Color(0xFFD3E25B),
-    linkBG = Color(0x26EBFF69),
-    success = Color(0xFF66EBB3),
-    text = Color(0xFFA189FF),
-    textBG = Color(0x26A189FF),
-    contact = Color(0xFF4AD2A3),
-    contactBG = Color(0x264AD2A3),
-    geo = Color(0xFFFF629F),
-    geoBG = Color(0x26FF629F),
-    phone = Color(0xFFFF9D5C),
-    phoneBG = Color(0x26FF9D5C),
-    wifi = Color(0xFF7593FF),
-    wifiBG = Color(0x267593FF)
+    link = Color(0xFFF59E0B),
+    linkBG = Color(0x26F59E0B),
+    success = Color(0xFF32D583),
+    text = Color(0xFFA48AFB),
+    textBG = Color(0x26A48AFB),
+    contact = Color(0xFF47CD89),
+    contactBG = Color(0x2647CD89),
+    geo = Color(0xFFFD6F9E),
+    geoBG = Color(0x26FD6F9E),
+    phone = Color(0xFFFD853A),
+    phoneBG = Color(0x26FD853A),
+    wifi = Color(0xFF36BFFA),
+    wifiBG = Color(0x2636BFFA)
 )
 
 val LocalAppColors = staticCompositionLocalOf { LightColors }

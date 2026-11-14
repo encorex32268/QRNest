@@ -28,7 +28,8 @@ fun QRNestSnackbar(
     text: String,
     containerColor: Color,
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(6.dp),
+    contentColor: Color = MaterialTheme.colorScheme.appColors.onOverlay,
+    shape: Shape = RoundedCornerShape(12.dp),
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
     Row(
@@ -38,7 +39,7 @@ fun QRNestSnackbar(
                 color = containerColor,
                 shape = shape
             )
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -49,7 +50,7 @@ fun QRNestSnackbar(
         Text(
             text = text,
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurface
+            color = contentColor
         )
     }
 }

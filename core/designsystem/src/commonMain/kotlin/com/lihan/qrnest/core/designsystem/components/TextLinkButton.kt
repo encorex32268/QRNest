@@ -25,13 +25,14 @@ fun TextLinkButton(
 ) {
     TextButton(
         modifier = modifier,
-        onClick = onClick
+        onClick = onClick,
+        shape = RoundedCornerShape(8.dp)
     ) {
         SelectionContainer {
             Text(
                 modifier = Modifier
-                    .background(color = background, shape = RoundedCornerShape(4.dp))
-                    .padding(horizontal = 6.dp, vertical = 2.dp),
+                    .background(color = background, shape = RoundedCornerShape(8.dp))
+                    .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = text,
                 style = MaterialTheme.typography.labelLarge,
                 color = color
