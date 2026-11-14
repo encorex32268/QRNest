@@ -1,6 +1,9 @@
 package com.lihan.qrnest.feature.generate.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +14,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,9 +38,14 @@ fun CreateQRTextField(
     ),
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+    val fieldShape = RoundedCornerShape(16.dp)
+
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
+        interactionSource = interactionSource,
         decorationBox = { innerField ->
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -54,17 +64,26 @@ fun CreateQRTextField(
         textStyle = MaterialTheme.typography.bodyLarge.copy(
             color = MaterialTheme.colorScheme.onSurface
         ),
-        cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
+        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
+            .clip(fieldShape)
             .background(
                 color = MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(20.dp)
+                shape = fieldShape
+            )
+            .border(
+                width = if (isFocused) 1.5.dp else 1.dp,
+                color = if (isFocused) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.outline
+                },
+                shape = fieldShape
             )
             .fillMaxWidth()
-            .padding(vertical = 18.dp, horizontal = 16.dp)
+            .padding(vertical = 16.dp, horizontal = 16.dp)
     )
 }
 

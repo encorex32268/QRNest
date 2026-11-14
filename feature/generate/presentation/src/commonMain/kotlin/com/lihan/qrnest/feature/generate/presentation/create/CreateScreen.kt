@@ -2,6 +2,7 @@
 
 package com.lihan.qrnest.feature.generate.presentation.create
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -131,18 +132,19 @@ fun CreateScreen(
         )
 
         Surface(
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(22.dp),
             modifier = Modifier
                 .widthIn(max = 480.dp)
                 .fillMaxWidth()
                 .padding(16.dp),
-            color = MaterialTheme.colorScheme.appColors.surfaceHigher
+            color = MaterialTheme.colorScheme.appColors.surfaceHigher,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 when (state.qrCodeType) {
                     QRCodeType.Text,
