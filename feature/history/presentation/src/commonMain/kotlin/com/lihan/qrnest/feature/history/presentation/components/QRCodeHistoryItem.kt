@@ -2,7 +2,9 @@
 
 package com.lihan.qrnest.feature.history.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lihan.qrnest.core.designsystem.components.CircleIcon
 import com.lihan.qrnest.core.designsystem.components.QRNestIconButton
 import com.lihan.qrnest.core.designsystem.icon.QRNestIcons
 import com.lihan.qrnest.core.designsystem.resources.Res
@@ -53,12 +55,14 @@ fun QRCodeHistoryItem(
 
     Surface(
         modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(20.dp))
             .combinedClickable(
                 onClick = onItemClick,
                 onLongClick = onItemLongClick
             ),
-        color = MaterialTheme.colorScheme.appColors.surfaceHigher
+        shape = RoundedCornerShape(20.dp),
+        color = MaterialTheme.colorScheme.appColors.surfaceHigher,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Box(
             modifier = Modifier.fillMaxWidth()
@@ -66,15 +70,23 @@ fun QRCodeHistoryItem(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(12.dp),
+                    .padding(14.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                CircleIcon(
-                    backgroundColor = qrCodeType.toBackgroundColor(),
-                    imageVector = qrCodeType.toImageVector(),
-                    iconTintColor = qrCodeType.toIconTint(),
-                    onClick = onItemClick
-                )
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(qrCodeType.toBackgroundColor()),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier.size(18.dp),
+                        imageVector = qrCodeType.toImageVector(),
+                        contentDescription = null,
+                        tint = qrCodeType.toIconTint()
+                    )
+                }
                 Column(
                     modifier = Modifier
                         .weight(1f)
@@ -110,8 +122,7 @@ fun QRCodeHistoryItem(
             QRNestIconButton(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(top = 8.dp, end = 8.dp)
-                    .size(32.dp),
+                    .padding(top = 4.dp, end = 4.dp),
                 imageVector = if (item.isFavorite) {
                     QRNestIcons.StarFill
                 } else {
@@ -121,7 +132,7 @@ fun QRCodeHistoryItem(
                 onClick = onFavoriteClick,
                 containerColor = Color.Transparent,
                 tintColor = if (item.isFavorite) {
-                    MaterialTheme.colorScheme.onSurface
+                    MaterialTheme.colorScheme.primary
                 } else {
                     MaterialTheme.colorScheme.appColors.onSurfaceDisabled
                 }
