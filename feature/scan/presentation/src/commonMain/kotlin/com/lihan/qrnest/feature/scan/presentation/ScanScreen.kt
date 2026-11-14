@@ -2,17 +2,21 @@ package com.lihan.qrnest.feature.scan.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,10 +30,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.lihan.qrnest.core.designsystem.components.CircleIcon
+import com.lihan.qrnest.core.designsystem.components.QRNestIconButton
 import com.lihan.qrnest.core.designsystem.components.QRNestSnackbar
 import com.lihan.qrnest.core.designsystem.icon.QRNestIcons
 import com.lihan.qrnest.core.designsystem.resources.Res
@@ -158,7 +164,7 @@ fun ScanScreen(
                         leadingIcon = {
                             Icon(
                                 imageVector = QRNestIcons.Check,
-                                tint = MaterialTheme.colorScheme.onSurface,
+                                tint = MaterialTheme.colorScheme.appColors.onOverlay,
                                 contentDescription = null
                             )
                         }
@@ -253,52 +259,79 @@ private fun CameraScannerContent(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = MaterialTheme.colorScheme.appColors.onSurfaceAlt.copy(alpha = 0.5f)
+                    color = MaterialTheme.colorScheme.appColors.overlay
                 )
         )
 
-        CircleIcon(
-            backgroundColor = if (isFlashOn) {
+        QRNestIconButton(
+            imageVector = if (isFlashOn) QRNestIcons.FlashOff else QRNestIcons.Flash,
+            contentDescription = stringResource(Res.string.flashlight),
+            containerColor = if (isFlashOn) {
                 MaterialTheme.colorScheme.primary
             } else {
                 MaterialTheme.colorScheme.appColors.surfaceHigher
             },
-            iconTintColor = MaterialTheme.colorScheme.onSurface,
-            imageVector = if (isFlashOn) QRNestIcons.FlashOff else QRNestIcons.Flash,
-            contentDescription = stringResource(Res.string.flashlight),
+            tintColor = if (isFlashOn) {
+                MaterialTheme.colorScheme.onPrimary
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            },
+            iconSize = 20.dp,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .systemBarsPadding()
-                .padding(top = 20.dp, start = 24.dp)
-                .size(44.dp),
+                .displayCutoutPadding()
+                .padding(top = 16.dp, start = 20.dp),
             onClick = onFlashClick
         )
 
-        CircleIcon(
-            backgroundColor = MaterialTheme.colorScheme.appColors.surfaceHigher,
-            iconTintColor = MaterialTheme.colorScheme.onSurface,
+        QRNestIconButton(
             imageVector = QRNestIcons.Image,
             contentDescription = stringResource(Res.string.pick_image),
+            containerColor = MaterialTheme.colorScheme.appColors.surfaceHigher,
+            tintColor = MaterialTheme.colorScheme.onSurface,
+            iconSize = 20.dp,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .systemBarsPadding()
-                .padding(top = 20.dp, end = 24.dp)
-                .size(44.dp),
+                .displayCutoutPadding()
+                .padding(top = 16.dp, end = 20.dp),
             onClick = onPickImageClick
         )
 
-        Column(
+        BoxWithConstraints(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = stringResource(Res.string.point_your_camera_at_a_qr_code),
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.appColors.onOverlay
-            )
-            Spacer(Modifier.height(32.dp))
-            ScanFrame(modifier = Modifier.size(320.dp))
+            val frameSize = (minOf(maxWidth, maxHeight) * 0.62f).coerceIn(180.dp, 296.dp)
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(100))
+                        .background(Color(0x9915120D))
+                        .border(
+                            width = 1.dp,
+                            color = Color.White.copy(alpha = 0.16f),
+                            shape = RoundedCornerShape(100)
+                        )
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    Text(
+                        text = stringResource(Res.string.point_your_camera_at_a_qr_code),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.appColors.onOverlay
+                    )
+                }
+                Spacer(Modifier.height(20.dp))
+                ScanFrame(
+                    modifier = Modifier.size(frameSize),
+                    pathColor = Color.White
+                )
+            }
         }
     }
 }

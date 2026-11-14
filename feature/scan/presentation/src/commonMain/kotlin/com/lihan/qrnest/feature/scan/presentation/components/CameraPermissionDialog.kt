@@ -1,5 +1,6 @@
 package com.lihan.qrnest.feature.scan.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,8 +37,9 @@ fun CameraPermissionDialog(
 ) {
     Surface(
         modifier = modifier.padding(24.dp),
-        color = MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(12.dp)
+        color = MaterialTheme.colorScheme.appColors.surfaceHigher,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+        shape = RoundedCornerShape(22.dp)
     ) {
         Column(
             modifier = Modifier
@@ -56,20 +57,21 @@ fun CameraPermissionDialog(
             Text(
                 text = stringResource(Res.string.camera_permission_description),
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.appColors.onSurfaceAlt,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+                horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
             ) {
                 Button(
-                    modifier = Modifier.clip(RoundedCornerShape(100)),
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(16.dp),
                     onClick = onCloseApp,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.appColors.surfaceHigher
+                        containerColor = MaterialTheme.colorScheme.surface
                     )
                 ) {
                     Text(
@@ -79,16 +81,17 @@ fun CameraPermissionDialog(
                     )
                 }
                 Button(
-                    modifier = Modifier.clip(RoundedCornerShape(100)),
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(16.dp),
                     onClick = onGrantAccess,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.appColors.surfaceHigher
+                        containerColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
                     Text(
                         text = stringResource(Res.string.grant_access),
                         style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
