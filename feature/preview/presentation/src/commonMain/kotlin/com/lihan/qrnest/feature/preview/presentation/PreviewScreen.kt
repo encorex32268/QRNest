@@ -5,6 +5,7 @@ package com.lihan.qrnest.feature.preview.presentation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -134,7 +135,7 @@ fun PreviewScreen(
                         leadingIcon = {
                             Icon(
                                 imageVector = QRNestIcons.Check,
-                                tint = MaterialTheme.colorScheme.onSurface,
+                                tint = MaterialTheme.colorScheme.appColors.onOverlay,
                                 contentDescription = null
                             )
                         }
@@ -147,6 +148,8 @@ fun PreviewScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .displayCutoutPadding()
+                .navigationBarsPadding()
                 .verticalScroll(rememberScrollState())
         ) {
             CenterAlignedTopAppBar(
@@ -168,15 +171,20 @@ fun PreviewScreen(
                     )
                 },
                 actions = {
+                    val isFavorite = state.qrCodeHistoryUi?.isFavorite == true
                     QRNestIconButton(
-                        imageVector = if (state.qrCodeHistoryUi?.isFavorite == true) {
+                        imageVector = if (isFavorite) {
                             QRNestIcons.StarFill
                         } else {
                             QRNestIcons.Star
                         },
                         contentDescription = stringResource(Res.string.favorite),
                         containerColor = Color.Transparent,
-                        tintColor = MaterialTheme.colorScheme.onSurface,
+                        tintColor = if (isFavorite) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
                         iconSize = 24.dp,
                         onClick = { onAction(PreviewAction.FavoriteClick) }
                     )
@@ -185,7 +193,7 @@ fun PreviewScreen(
                     containerColor = Color.Transparent
                 )
             )
-            Spacer(Modifier.height(28.dp))
+            Spacer(Modifier.height(12.dp))
             state.qrCodeHistoryUi?.let { item ->
                 QRCodePreviewCard(
                     modifier = Modifier
